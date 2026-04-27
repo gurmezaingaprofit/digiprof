@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formular</title>
+
+<style>
+body {
+  font-family: Arial;
+  background:#f5f5f5;
+  display:flex;
+  justify-content:center;
+}
+
+.box {
+  width:400px;
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  border:2px solid #2d7ef7;
+}
+
+input, textarea {
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button {
+  margin-top:15px;
+  width:100%;
+  padding:12px;
+  background:#2d7ef7;
+  color:white;
+  border:none;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Trimite un mesaj</h2>
+
+<input id="nume" placeholder="Cum te numești?">
+<textarea id="mesaj" placeholder="Scrie mesajul tău..."></textarea>
+
+<button onclick="trimite()">Trimite spre aprobare</button>
+
+<p id="notif" style="display:none;color:green;">Mesaj trimis!</p>
+</div>
+
+<script>
+const SCRIPT_URL = 'PASTE_LINKUL_TAU_AICI';
+
+function trimite() {
+  const n = document.getElementById('nume').value;
+  const m = document.getElementById('mesaj').value;
+
+  if(!n || !m) {
+    alert("Completează câmpurile!");
+    return;
+  }
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({nume:n, mesaj:m})
+  });
+
+  document.getElementById('notif').style.display='block';
+}
+</script>
+
+</body>
+</html>
